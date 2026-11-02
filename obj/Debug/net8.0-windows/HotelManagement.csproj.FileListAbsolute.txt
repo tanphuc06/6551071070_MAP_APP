@@ -231,3 +231,4 @@ C:\Users\Lenovo\TH_LTTQ\Project\bin\Debug\net8.0-windows\Resources\warning.png
 C:\Users\Lenovo\TH_LTTQ\Project\bin\Debug\net8.0-windows\Resources\x.png
 C:\Users\Lenovo\TH_LTTQ\Project\obj\Debug\net8.0-windows\HotelManagement.Properties.Resources.resources
 C:\Users\Lenovo\TH_LTTQ\Project\obj\Debug\net8.0-windows\HotelManagement.csproj.GenerateResource.cache
+C:\Users\Lenovo\TH_LTTQ\Project\obj\Debug\net8.0-windows\HotelManagement.sourcelink.json

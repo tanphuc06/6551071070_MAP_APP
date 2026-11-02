@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manga Reader: Hành Trình Chinh Phục Ngôi Vương – ITK65 UTC2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0b0f19;
+      --bg-card: #151c2c;
+      --panel-border: #2a364f;
+      --navy: #0d1b3e;
+      --royal: #1e40af;
+      --accent-red: #ef4444;
+      --accent-gold: #f59e0b;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --bubble-bg: #ffffff;
+      --bubble-text: #0f172a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    /* Header Bar */
+    header {
+      background: linear-gradient(135deg, #0a1128 0%, #1c1917 50%, #0d1b3e 100%);
+      border-bottom: 3px solid var(--accent-red);
+      padding: 16px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-badge {
+      background: linear-gradient(135deg, #ef4444, #b91c1c);
+      color: white;
+      font-family: 'Bangers', cursive;
+      font-size: 24px;
+      padding: 4px 12px;
+      border-radius: 6px;
+      letter-spacing: 1px;
+      box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+    }
+
+    .brand-title h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 20px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .brand-title p {
+      font-size: 13px;
+      color: var(--accent-gold);
+      font-weight: 600;
+    }
+
+    /* Controls Bar */
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background: #1e293b;
+      color: #fff;
+      border: 1px solid #334155;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover:not(:disabled) {
+      background: var(--royal);
+      border-color: #60a5fa;
+      transform: translateY(-2px);
+    }
+
+    .btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border: none;
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #d97706, #b45309);
+      border: none;
+      color: #fff;
+    }
+
+    select.page-select {
+      background: #1e293b;
+      color: #fff;
+      border: 1px solid #334155;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+    }
+
+    /* Main Container */
+    main {
+      max-width: 1200px;
+      margin: 24px auto;
+      padding: 0 16px;
+    }
+
+    /* Hero Banner with Generated Cover */
+    .hero-banner {
+      background: linear-gradient(180deg, #161e2e 0%, #0d1322 100%);
+      border: 2px solid #29354d;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+      .hero-banner {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+
+    .hero-img-container {
+      flex: 0 0 280px;
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+      border: 2px solid var(--accent-red);
+    }
+
+    .hero-img-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .hero-img-container:hover img {
+      transform: scale(1.04);
+    }
+
+    .hero-text {
+      flex: 1;
+    }
+
+    .hero-text h2 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 26px;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .jersey-tag {
+      display: inline-block;
+      background: #0f172a;
+      border: 1px solid #334155;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      color: #93c5fd;
+      margin-bottom: 12px;
+    }
+
+    .jersey-color-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #0d1b3e;
+      border: 1px solid #ef4444;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      color: #fca5a5;
+      margin-left: 6px;
+    }
+
+    /* Manga Page Layout (4 Panels) */
+    .manga-page {
+      background: #0a0d14;
+      border: 3px solid #1e293b;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 36px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+      position: relative;
+    }
+
+    .manga-page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px dashed #243048;
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+
+    .page-indicator {
+      font-family: 'Bangers', cursive;
+      font-size: 22px;
+      letter-spacing: 1px;
+      color: var(--accent-gold);
+    }
+
+    .page-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 18px;
+      text-transform: uppercase;
+      color: #e2e8f0;
+    }
+
+    /* 4-Panel Grid */
+    .panel-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .panel-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* Individual Manga Panel */
+    .manga-panel {
+      background: #111726;
+      border: 3px solid #334155;
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .manga-panel:hover {
+      border-color: #60a5fa;
+      transform: translateY(-2px);
+    }
+
+    /* Speed lines pattern background */
+    .panel-bg-action {
+      background: radial-gradient(circle, #1a253c 10%, #0d1424 90%);
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .panel-number {
+      font-family: 'Bangers', cursive;
+      font-size: 16px;
+      background: #0f172a;
+      border: 1px solid #475569;
+      color: #94a3b8;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .sfx-badge {
+      font-family: 'Bangers', cursive;
+      font-size: 20px;
+      letter-spacing: 1.5px;
+      color: #fbbf24;
+      text-shadow: 2px 2px 0px #b45309, -1px -1px 0px #000;
+      transform: rotate(-6deg);
+      display: inline-block;
+    }
+
+    /* Manga Visual Description Box */
+    .panel-visual {
+      background: #0b0f19;
+      border-left: 3px solid #3b82f6;
+      padding: 10px 12px;
+      font-size: 13px;
+      color: #cbd5e1;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .panel-visual strong {
+      color: #93c5fd;
+    }
+
+    /* Manga Speech Bubble */
+    .speech-bubble {
+      background: var(--bubble-bg);
+      color: var(--bubble-text);
+      border: 2px solid #000;
+      border-radius: 18px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.4;
+      position: relative;
+      margin-top: 8px;
+      box-shadow: 3px 3px 0px rgba(0,0,0,0.8);
+      animation: floatBubble 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatBubble {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-3px); }
+    }
+
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 20px;
+      border-width: 10px 10px 0;
+      border-style: solid;
+      border-color: #fff transparent;
+      display: block;
+      width: 0;
+    }
+
+    .speech-bubble::before {
+      content: '';
+      position: absolute;
+      bottom: -13px;
+      left: 19px;
+      border-width: 12px 11px 0;
+      border-style: solid;
+      border-color: #000 transparent;
+      display: block;
+      width: 0;
+    }
+
+    .speaker-name {
+      font-size: 11px;
+      text-transform: uppercase;
+      font-family: 'Oswald', sans-serif;
+      color: #dc2626;
+      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .speaker-name svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    /* Narrator Box */
+    .caption-box {
+      background: #fef08a;
+      color: #451a03;
+      border: 2px solid #000;
+      padding: 8px 12px;
+      font-size: 12.5px;
+      font-style: italic;
+      font-weight: 600;
+      border-radius: 4px;
+      box-shadow: 2px 2px 0px rgba(0,0,0,0.5);
+    }
+
+    /* Thumbnail Navigator */
+    .thumb-nav {
+      background: #111827;
+      border: 1px solid #1f2937;
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: 24px;
+    }
+
+    .thumb-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 14px;
+      color: var(--accent-gold);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .thumb-list {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+
+    .thumb-btn {
+      flex: 0 0 46px;
+      height: 46px;
+      background: #1e293b;
+      border: 2px solid #334155;
+      color: #94a3b8;
+      border-radius: 6px;
+      font-family: 'Bangers', cursive;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .thumb-btn:hover {
+      border-color: #60a5fa;
+      color: #fff;
+    }
+
+    .thumb-btn.active {
+      background: #2563eb;
+      border-color: #93c5fd;
+      color: #fff;
+      box-shadow: 0 0 10px rgba(37, 99, 235, 0.6);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 16px;
+      color: var(--text-muted);
+      font-size: 13px;
+      border-top: 1px solid #1e293b;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <div class="brand-badge">UTC2 MANGA</div>
+      <div class="brand-title">
+        <h1>Hành Trình Chinh Phục Ngôi Vương – ITK65</h1>
+        <p>Khoa Công nghệ Thông tin – ĐH Giao thông Vận tải (Phân hiệu TP.HCM)</p>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="btn" id="prevBtn" onclick="prevPage()">◀ Trang Trước</button>
+      <select class="page-select" id="pageSelect" onchange="jumpToPage(this.value)">
+        <!-- Generated by JS -->
+      </select>
+      <button class="btn btn-primary" id="nextBtn" onclick="nextPage()">Trang Tiếp ▶</button>
+      <button class="btn btn-gold" onclick="toggleAllPages()" id="viewModeBtn">📜 Xem Toàn Bộ 20 Trang</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero / Cover Banner -->
+    <section class="hero-banner">
+      <div class="hero-img-container">
+        <img src="utc2_manga_cover.jpg" alt="ITK65 Manga Cover Art">
+      </div>
+      <div class="hero-text">
+        <div class="jersey-tag">
+          Đồng phục chuẩn: 
+          <span class="jersey-color-badge">Thân Navy Đậm</span>
+          <span class="jersey-color-badge" style="border-color:#3b82f6; color:#93c5fd;">Vai Royal Blue</span>
+          <span class="jersey-color-badge" style="border-color:#ef4444; color:#fca5a5;">Cổ tim viền Đỏ - Trắng</span>
+        </div>
+        <h2>HÀNH TRÌNH CHINH PHỤC NGÔI VƯƠNG – ITK65</h2>
+        <p style="color: #cbd5e1; font-size: 14px; margin-bottom: 12px;">
+          Bộ truyện tranh manga thể thao 20 trang (80 khung hình) tái hiện sống động hành trình quả cảm của những chàng trai Công nghệ Thông tin K65 vượt qua bảng tử thần, vòng knock-out nghẹt thở và trận chung kết lịch sử tại sân bóng UTC2.
+        </p>
+        <p style="color: var(--accent-gold); font-size: 13px; font-weight: 700;">
+          💡 Mẹo đọc: Sử dụng nút ◀ ▶ hoặc phím mũi tên bàn phím Trái/Phải để chuyển trang mượt mà! Lời thoại bong bóng bay trực tiếp trên đầu nhân vật.
+        </p>
+      </div>
+    </section>
+
+    <!-- Manga Page Container -->
+    <div id="mangaContainer">
+      <!-- Injected by JavaScript -->
+    </div>
+
+    <!-- Thumbnail Strip -->
+    <div class="thumb-nav">
+      <div class="thumb-title">Nhảy nhanh đến trang (1 - 20):</div>
+      <div class="thumb-list" id="thumbList">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>🏆 <strong>ITK65 – CHIẾN ĐẤU HẾT MÌNH – VÔ ĐỊCH HẾT MÌNH!</strong> 🏆</p>
+    <p style="margin-top: 6px;">Bộ môn Công nghệ Thông tin – Trường Đại học Giao thông Vận tải, Phân hiệu tại TP. Hồ Chí Minh (UTC2)</p>
+  </footer>
+
+  <script>
+    const pagesData = [
+      {
+        page: 1,
+        title: "Rời Bàn Phím, Bước Ra Sân Cỏ UTC2",
+        panels: [
+          {
+            num: 1,
+            sfx: "XÀO XẠC...",
+            visual: "Toàn cảnh trên cao cổng trường Đại học Giao thông Vận tải - Phân hiệu TP.HCM (UTC2) ngập nắng vàng, hàng cây xanh tươi mát.",
+            caption: "Giữa mái trường UTC2, nơi những thế hệ sinh viên Công nghệ Thông tin ngày đêm miệt mài bên những dòng code...",
+            speaker: null,
+            dialogue: null
+          },
+          {
+            num: 2,
+            sfx: "CẠCH!",
+            visual: "Phòng máy tính lab CNTT. Một sinh viên đóng nắp laptop, trên màn hình dòng code C++ vừa báo BUILD SUCCESSFUL.",
+            caption: null,
+            speaker: "Cầu thủ CNTT",
+            dialogue: "Debug xong task cuối rồi! Đến giờ ra sân thôi anh em ơi!"
+          },
+          {
+            num: 3,
+            sfx: "XOẠT!",
+            visual: "Cận cảnh bàn tay mở ba lô, lấy ra chiếc áo đấu bóng đá màu xanh navy viền cổ sọc đỏ-trắng in logo ITK65.",
+            caption: "Có một sân chơi không có dòng lệnh, nhưng đòi hỏi sự chính xác tuyệt đối, tư duy chiến thuật và nhịp đập đồng đội...",
+            speaker: null,
+            dialogue: null
+          },
+          {
+            num: 4,
+            sfx: "BỘP! VÚT!",
+            visual: "Góc thấp dynamic: Đôi giày đinh bước mạnh mẽ lên mặt cỏ xanh rì của sân bóng UTC2, quả bóng lăn đến chân.",
+            caption: "Đó chính là sân cỏ! Nơi giải bóng đá Bộ môn CNTT chính thức khởi tranh!",
+            speaker: "Đội trưởng Minh",
+            dialogue: "Mục tiêu duy nhất lần này: CHINH PHỤC NGÔI VƯƠNG!"
+          }
+        ]
+      },
+      {
+        page: 2,
+        title: "Hội Quân ITK65 – Tinh Thần Rực Lửa",
+        panels: [
+          {
+            num: 1,
+            sfx: "BỘP! TÁCH!",
+            visual: "Nhóm cầu thủ ITK65 trong trang phục xanh navy viền đỏ trắng khởi động ép cơ, chuyền bóng ngắn với nụ cười rạng rỡ.",
+            caption: null,
+            speaker: "Tiền vệ Huy",
+            dialogue: "Hôm nay cảm giác bóng tốt lắm đấy Minh!"
+          },
+          {
+            num: 2,
+            sfx: "XIẾT... SOẠT!",
+            visual: "Cận cảnh Đội trưởng Minh cúi người thắt chặt dây giày đinh, ánh mắt ngước lên nhìn thẳng vào ống kính cực kỳ quyết đoán.",
+            caption: null,
+            speaker: "Minh (Đội trưởng)",
+            dialogue: "Khởi động thật kỹ vào. Với chúng ta, trận nào cũng là trận chung kết!"
+          },
+          {
+            num: 3,
+            sfx: "GIÓ THỔI...",
+            visual: "Toàn đội ITK65 đứng dàn hàng ngang khoác vai nhau trên sân cỏ, phía sau là băng rôn giải đấu CNTT UTC2.",
+            caption: "ITK65 bước vào giải đấu năm nay với một khát vọng duy nhất đã được nung nấu từ rất lâu...",
+            speaker: null,
+            dialogue: null
+          },
+          {
+            num: 4,
+            sfx: "ẦM!!",
+            visual: "Cả đội cùng chụm đầu, đặt chồng tay lên nhau giữa vòng tròn và gào vang khẩu hiệu quyết tâm.",
+            caption: null,
+            speaker: "Toàn đội ITK65",
+            dialogue: "CHINH PHỤC NGÔI VƯƠNG! 1... 2... 3... ITK65 TIẾN LÊN!!"
+          }
+        ]
+      },
+      {
+        page: 3,
+        title: "Bảng Đấu Tử Thần Lộ Diện",
+        panels: [
+          {
+            num: 1,
+            sfx: "TÍCH TẮC...",
+            visual: "Cận cảnh bảng kết quả bốc thăm: BẢNG B: ITK65, ITK64, ITK66 Đội 2, Cựu Sinh Viên.",
+            caption: "Hai bảng đấu... và số phận đã đưa ITK65 rơi vào Bảng B - 'bảng đấu tử thần' khốc liệt nhất!",
+            speaker: null,
+            dialogue: null
+          },
+          {
+            num: 2,
+            sfx: "XÌ XÀO...",
+            visual: "Các thành viên ITK65 tụ họp quanh sa bàn chiến thuật, nét mặt nghiêm túc nghiên cứu điểm mạnh đối thủ.",
+            caption: null,
+            speaker: "Hậu vệ Nam",
+            dialogue: "Bảng này căng thật! K64 rất khỏe, còn các anh Cựu sinh viên thì quá già rơ kinh nghiệm..."
+          },
+          {
+            num: 3,
+            sfx: "CỘC CỘC!",
+            visual: "Minh gõ bút lông lên sơ đồ chiến thuật, ánh mắt sắc sảo lóe lên tia sáng đầy tự tin.",
+            caption: null,
+            speaker: "Đội trưởng Minh",
+            dialogue: "Càng khó khăn, chiến thắng mới càng ngọt ngào! Chúng ta hiểu nhau từ từng dòng code, sân cỏ này cũng thế!"
+          },
+          {
+            num: 4,
+            sfx: "PHÙNG!!",
+            visual: "Cả đội siết chặt nắm đấm, ngọn lửa ý chí bùng lên quanh từng người như hào quang manga shonen.",
+            caption: "ITK65 không đến đây để tham gia cho đủ đội hình... Chúng tôi đến để chiến đấu!",
+            speaker: "Toàn đội",
+            dialogue: "SẴN SÀNG CHIẾN ĐẤU!!"
+          }
+        ]
+      },
+      {
+        page: 4,
+        title: "Vòng Bảng: Bão Táp Khai Màn Gặp ITK64",
+        panels: [
+          {
+            num: 1,
+            sfx: "TUUUÚT!",
+            visual: "Trọng tài nổi còi khai cuộc trận đầu tiên với ITK64. Khán giả đứng kín đường biên reo hò cuồng nhiệt.",
+            caption: "Trận khai màn gặp ITK64. Sức trẻ và lối đá pressing tầm cao điên cuồng lập tức tạo bão táp!",
+            speaker: null,
+            dialogue: null
+          },
+          {
+            num: 2,
+            sfx: "OÀNH!!",
+            visual: "Tiền đạo ITK64 tung cú sút xa bất ngờ, bóng bay căng xé gió về góc hiểm khung thành ITK65.",
+            caption: null,
+            speaker: "Thủ môn ITK65",
+            dialogue: "Nguy hiểm! Bọc lót mau!!"
+          },
+          {
+            num: 3,
+            sfx: "XOẠC LƯỚI!",
+            visual: "Lưới rung lên! Bảng điểm nhảy số: ITK64: 1 - 0 :ITK65. Cầu thủ ITK65 thở dốc dưới cái nắng gay gắt.",
+            caption: null,
+            speaker: "Cổ động viên",
+            dialogue: "Trời ơi! K65 bị dẫn trước rồi!"
+          },
+          {
+            num: 4,
+            sfx: "BỐP! BỐP!",
+            visual: "Đội trưởng Minh vỗ tay thật mạnh, giơ tay kéo từng đồng đội đứng dậy khỏi bãi cỏ, ánh mắt bốc lửa.",
+            caption: null,
+            speaker: "Đội trưởng Minh",
+            dialogue: "Ngẩng cao đầu lên anh em! Trận đấu mới bắt đầu thôi, đẩy cao đội hình phản công ngay!"
+          }
+        ]
+      },
+      {
+        page: 5,
+        title: "Bản Lĩnh Trỗi Dậy: Lội Ngược Dòng Mãn Nhãn",
+        panels: [
+          {
+            num: 1,
+            sfx: "TÁCH! TÁCH!",
+            visual: "ITK65 dàn cự ly phối hợp đập nhả 1 chạm cực kỳ chính xác ở khu vực giữa sân.",
+            caption: "Khi tư duy logic được vận hành trơn tru trên sân cỏ, nhịp điệu trận đấu lập tức đảo chiều!",
+            speaker: null,
+            dialogue: null
+          },
+          {
+            num: 2,
+            sfx: "VÚT!!",
+            visual: "Tiền vệ vẩy má ngoài chân phải, tung một đường chuyền bổng rót bóng loại bỏ hoàn toàn hàng thủ đối phương.",
+            caption: null,
+            speaker: "Tiền vệ Huy",
+            dialogue: "Minh! Thoát xuống ngay!!"
+          },
+          {
+            num: 3,
+            sfx: "KABOOOM!!",
+            visual: "Dynamic Speedlines: Minh bứt tốc phá bẫy việt vị, vung chân bắt vô-lê sấm sét khi bóng chưa chạm đất!",
+            caption: null,
+            speaker: "Đội trưởng Minh",
+            dialogue: "VÀO NÀY!!"
+          },
+          {
+            num: 4,
+            sfx: "HOAN HÔ ẦM Ĩ!",
+            visual: "Bóng găm thẳng vào góc chữ A! Tỷ số đảo chiều ngoạn mục thành ITK65: 2 - 1 :ITK64. Cả đội trượt gối ăn mừng!",
+            caption: "Bản lĩnh của ITK65 đã lên tiếng đúng lúc! Chiến thắng mở màn nghẹt thở nhưng xứng đáng!",
+            speaker: "Toàn đội",
+            dialogue: "LỘI NGƯỢC DÒNG THÀNH CÔNG!!"
+          }
+        ]
+      },
+      {
+        page: 6,
+        title: "Đấu Trí Chiến Thuật Trước ITK66 Đội 2",
+        panels: [
+          {
+            num: 1,
+            sfx: "XÌ XÀO...",
+            visual: "Trận 2 gặp ITK66 Đội 2. Đối thủ dựng hàng rào 'xe buýt 2 tầng' phòng ngự tiêu cực, bịt kín vòng cấm địa.",
+            caption: null,
+            speaker: "Hậu vệ ITK66",
+            dialogue: "Kèm chặt số 65 vào, không cho sút bóng!"
+          },
+          {
+            num: 2,
+            sfx: "THỊCH... THỊCH...",
+            visual: "Mồ hôi nhỏ tong tòng trên trán cầu thủ ITK65. Đồng hồ trôi dần về phút cuối, tỷ số vẫn ghìm ở 0-0 bế tắc.",
+            caption: "Một thế trận nghẹt thở đến từng giây. Một cú sảy chân có thể đẩy ITK65 vào hiểm cảnh...",
+            speaker: null,
+            dialogue: null
+          },
+          {
+            num: 3,
+            sfx: "OẰNG!!",
+            visual: "Nhận thấy đối phương lùi sâu, Minh bất ngờ vung chân nã đại bác mu lai má ngoài từ cự ly 25m!",
+            caption: null,
+            speaker: "Đội trưởng Minh",
+            dialogue: "Hệ thống nào cũng có kẽ hở!!"
+          },
+          {
+            num: 4,
+            sfx: "KENG... XOẠC!!",
+            visual: "Bóng dội mép dưới xà ngang đập thẳng vào lưới trong sự ngỡ ngàng của thủ môn đối phương! 1-0 cho ITK65!",
+            caption: "Siêu phẩm sút xa khai thông bế tắc! Chiến thắng thứ hai liên tiếp!",
+            speaker: "Bình luận viên",
+            dialogue: "SIÊU PHẨM KHÔNG TƯỞNG CỦA ITK65!!"
+          }
+        ]
+      },
+      {
+        page: 7,
+        title: "Thách Thức Cựu Sinh Viên: Va Chạm Nảy Lửa",
+        panels: [
+          {
+            num: 1,
+            sfx: "GỪM...",
+            visual: "Trận quyết định ngôi đầu gặp Đội Cựu Sinh Viên – những đàn anh dày dặn kinh nghiệm và lối đá già dơ.",
+            caption: null,
+            speaker: "Đội trưởng Cựu SV",
+            dialogue: "Mấy chú khóa dưới đá nét đấy, nhưng kinh nghiệm bọn anh không để trưng đâu!"
+          },
+          {
+            num: 2,
+            sfx: "RẦM!! HỰ!",
+            visual: "Pha tranh chấp bóng bổng trên không cực kỳ nảy lửa giữa trung vệ ITK65 và tiền đạo cựu sinh viên, cỏ bay mù mịt.",
+            caption: null,
+            speaker: "Trung vệ ITK65",
+            dialogue: "Bọn em tôn trọng các anh, nhưng chiến thắng này bọn em không nhường!"
+          },
+          {
+            num: 3,
+            sfx: "BỊCH!!",
+            visual: "Đối thủ phản công chớp nhoáng, thủ môn ITK65 lao ra dũng cảm ôm trọn bóng ngay trước mũi giày tiền đạo đối phương.",
+            caption: null,
+            speaker: "Thủ môn ITK65",
+            dialogue: "Bức tường thép ITK65 không thể bị xuyên thủng!"
+          },
+          {
+            num: 4,
+            sfx: "BỐP!",
+            visual: "Cầu thủ hai bên đưa tay kéo nhau đứng dậy sau pha va chạm, đập tay tôn trọng tinh thần thể thao đẹp đẽ.",
+            caption: "Sức trẻ và kinh nghiệm cọ xát tạo nên một trận đấu đỉnh cao của những người anh em CNTT UTC2.",
+            speaker: "Cựu SV",
+            dialogue: "Khá lắm các chú em! Tinh thần tuyệt vời!"
+          }
+        ]
+      },
+      {
+        page: 8,
+        title: "Bàn Thắng Vàng – Nhất Bảng Hiên Ngang Tiến Bước",
+        panels: [
+          {
+            num: 1,
+            sfx: "VÚT! VÚT!",
+            visual: "Phút 89, ITK65 tổ chức đợt phản công mẫu mực, chuyền 3 nhịp từ sân nhà sang thẳng cánh đối phương.",
+            caption: "Thời gian cạn dần, và đây là cơ hội cuối cùng!",
+            speaker: null,
+            dialogue: null
+          },
+          {
+            num: 2,
+            sfx: "BỘP... LƯỚI RUNG!",
+            visual: "Cú căng ngang dọn cỗ và pha đệm bóng cận thành chuẩn xác! 1-0 nghiêng về ITK65 trước Đội Cựu Sinh Viên!",
+            caption: null,
+            speaker: "Cầu thủ ghi bàn",
+            dialogue: "VÀO RỒI ANH EM ƠI!!"
+          },
+          {
+            num: 3,
+            sfx: "TINH TING!",
+            visual: "Bảng xếp hạng Manga: BẢNG B: HẠNG 1 - ITK65 (9 ĐIỂM TUYỆT ĐỐI - TOÀN THẮNG).",
+            caption: "Toàn thắng cả 3 trận! ITK65 hiên ngang tiến vào vòng knockout với tư thế đội đầu bảng B!",
+            speaker: null,
+            dialogue: null
+          },
+          {
+            num: 4,
+            sfx: "RẦM RỘ...",
+            visual: "Toàn đội ITK65 nhìn về phía khán đài danh dự, nơi chiếc Cúp Vàng đang phản chiếu ánh hoàng hôn rực rỡ.",
+            caption: "Vòng bảng đã khép lại, nhưng thử thách khắc nghiệt nhất giờ mới chính thức bắt đầu...",
+            speaker: "Đội trưởng Minh",
+            dialogue: "Vòng bảng chỉ là màn khởi động... Mục tiêu tiếp theo: Trận Chung Kết!"
+          }
+        ]
+      },
+      {
+        page: 9,
+        title: "Tứ Kết Nghẹt Thở: Đối Mặt Lối Đá Rát",
+        panels: [
+          {
+            num: 1,
+            sfx: "BƯỚC CHÂN...",
+            visual: "Hai đội bước ra sân trong không khí vòng loại trực tiếp lạnh ngắt và căng như dây đàn.",
+            caption: "Vòng Knock-out: Không còn cơ hội sửa sai. Thua là về nước, thắng mới được đi tiếp!",
+            speaker: null,
+            dialogue: null
+          },
+          {
+            num: 2,
+            sfx: "ZZZZT!",
+            visual: "Cận cảnh ánh mắt hai đội trưởng chạm nhau tóe ra tia sét đối đầu đặc trưng của anime thể thao.",
+            caption: null,
+            speaker: "Đội trưởng đối thủ",
+            dialogue: "Hôm nay hành trình của các cậu sẽ dừng lại ở đây!"
+          },
+          {
+            num: 3,
+            sfx: "XOẠC!! RẦM!",
+            visual: "Pha vào bóng nguy hiểm từ phía sau của đối phương khiến tiền vệ trụ cột ITK65 ngã nhào, ôm gối đau đớn.",
+            caption: null,
+            speaker: "Cầu thủ chấn thương",
+            dialogue: "Á... Cổ chân của mình!"
+          },
+          {
+            num: 4,
+            sfx: "XỊT XỊT!",
+            visual: "Trọng tài rút thẻ vàng. Nhân viên y tế vội vã chạy vào sân dùng bình xịt lạnh giảm đau khẩn cấp.",
+            caption: null,
+            speaker: "Bác sĩ sân cỏ",
+            dialogue: "Em bị lật nhẹ cổ chân rồi, có thể tiếp tục thi đấu được không?!"
+          }
+        ]
+      },
+      {
+        page: 10,
+        title: "Ý Chí Thép: Nén Đau Chiến Đấu Vì Màu Cờ Sắc Áo",
+        panels: [
+          {
+            num: 1,
+            sfx: "NGHIẾN RĂNG...",
+            visual: "Cầu thủ chấn thương cắn chặt môi, mồ hôi đầm đìa, từ chối cáng cứu thương và tự chống tay đứng dậy.",
+            caption: null,
+            speaker: "Cầu thủ nén đau",
+            dialogue: "Băng chặt lại giúp em! Em phải đá tiếp... Đội bóng đang cần em!"
+          },
+          {
+            num: 2,
+            sfx: "BỘP!",
+            visual: "Minh và hậu vệ Huy đến khoác vai đồng đội, chia sẻ sức nặng cơ thể bằng cái ôm siết chặt.",
+            caption: null,
+            speaker: "Đội trưởng Minh",
+            dialogue: "Cậu không đơn độc đâu! Cứ yên tâm, phía sau đã có bọn mình bọc lót!"
+          },
+          {
+            num: 3,
+            sfx: "CHẶN ĐỨNG!",
+            visual: "Đối thủ dồn bóng khoét vào vị trí chấn thương, nhưng toàn đội ITK65 dựng lên bức tường phòng ngự kiên cố không tì vết.",
+            caption: "Không lùi bước! Không buông xuôi! Tinh thần đồng đội biến thành bức khiên bất khả xâm phạm!",
+            speaker: null,
+            dialogue: null
+          },
+          {
+            num: 4,
+            sfx: "TUUUÚT! HẾT GIỜ!",
+            visual: "Pha phản công chớp nhoáng giúp ITK65 giữ vững chiến thắng tối thiểu 1-0. Trọng tài thổi còi kết thúc trận tứ kết!",
+            caption: "Vượt qua thử thách máu và nước mắt! Tấm vé Bán Kết thuộc về ITK65!",
+            speaker: "Toàn đội",
+            dialogue: "VÀO BÁN KẾT RỒI!!"
+          }
+        ]
+      },
+      {
+        page: 11,
+        title: "Bán Kết Giông Bão: Rượt Đuổi Điên Rồ Với ITK67",
+        panels: [
+          {
+            num: 1,
+            sfx: "RẦM RỘ!",
+            visual: "Trận Bán kết trong mơ: ITK65 đụng độ ITK67 Đội 1 – đội bóng sở hữu hàng công hủy diệt nhất giải.",
+            caption: "Trận chiến giữa bản lĩnh đàn anh ITK65 và sức trẻ vũ bão của ITK67!",
+            speaker: null,
+            dialogue: null
+          },
+          {
+            num: 2,
+            sfx: "BÙM!! VÀO!!",
+            visual: "Khung tranh chia đôi: ITK67 sút xa mở tỷ số 1-0, ngay sau đó Minh đánh đầu gỡ hòa 1-1 đẹp mắt!",
+            caption: null,
+            speaker: "Bình luận viên",
+            dialogue: "Cuộc đôi công nghẹt thở! Tốc độ trận đấu quá chóng mặt!"
+          },
+          {
+            num: 3,
+            sfx: "VÚT... OÀNH!!",
+            visual: "Phút 90+2, tiền đạo ITK67 đối mặt thủ môn ITK65, tung cú nã đại bác hiểm hóc vào góc chữ A!",
+            caption: null,
+            speaker: "CĐV ITK65",
+            dialogue: "Nguy hiểm quá, chết rồi!!"
+          },
+          {
+            num: 4,
+            sfx: "BỐP!! KENG!!",
+            visual: "Thủ môn ITK65 bay người như cánh chim đại bàng, dùng đầu ngón tay đẩy bóng chạm xà ngang bay vọt ra ngoài!",
+            caption: "Pha cứu thua không tưởng của mùa giải! Trận đấu phải phân định bằng loạt sút luân lưu 11m!",
+            speaker: "Thủ môn ITK65",
+            dialogue: "CÒN LÂU NHÉ!!"
+          }
+        ]
+      },
+      {
+        page: 12,
+        title: "Đấu Súng Luân Lưu – Đôi Tay Vàng Lịch Sử",
+        panels: [
+          {
+            num: 1,
+            sfx: "THỊCH... THỊCH...",
+            visual: "Quả bóng đặt trên chấm 11m. Thủ môn ITK65 dang rộng hai tay trên vạch vôi, ánh mắt tập trung tột độ.",
+            caption: "Lượt sút thứ 5 quyết định! Cả sân bóng nín thở chờ đợi định mệnh...",
+            speaker: null,
+            dialogue: null
+          },
+          {
+            num: 2,
+            sfx: "RẦM!!",
+            visual: "Cầu thủ đối phương vung chân sút cực căng bóng bay xoáy hiểm hóc về góc phải.",
+            caption: null,
+            speaker: "Cầu thủ sút phạt",
+            dialogue: "Chung kết là của bọn tao!"
+          },
+          {
+            num: 3,
+            sfx: "BỐP!! VĂNG RA!",
+            visual: "Đoán đúng hướng bóng, thủ môn ITK65 đổ người xuất thần đấm văng quả bóng ra ngoài!",
+            caption: null,
+            speaker: "Thủ môn ITK65",
+            dialogue: "BẮT BÀI RỒI NHÉ!!"
+          },
+          {
+            num: 4,
+            sfx: "ROOOOAR!!",
+            visual: "Toàn đội ITK65 từ giữa sân gào thét lao tới, đè ngửa người hùng thủ môn xuống sân cỏ ăn mừng điên cuồng!",
+            caption: "Chiến thắng nghẹt thở! ITK65 chính thức giành tấm vé vàng bước vào TRẬN CHUNG KẾT!",
+            speaker: "Toàn đội",
+            dialogue: "CHUNG KẾT RỒI! CHÚNG TA LÀM ĐƯỢC RỒI!!"
+          }
+        ]
+      },
+      {
+        page: 13,
+        title: "Ngày Chung Kết Lịch Sử Tại Sân Bóng UTC2",
+        panels: [
+          {
+            num: 1,
+            sfx: "TÙNG TÙNG CẮC TÙNG!",
+            visual: "Flycam toàn cảnh sân bóng Phân hiệu UTC2. Khán đài chật kín hàng trăm sinh viên và giảng viên cầm cờ hoa cổ vũ.",
+            caption: null,
+            speaker: "Khán đài UTC2",
+            dialogue: "ITK65 TIẾN LÊN! VÔ ĐỊCH NÀO!!"
+          },
+          {
+            num: 2,
+            sfx: "LẤP LÁNH...",
+            visual: "Cận cảnh chiếc Cúp Vàng vô địch mạ bóng loáng đặt trên bục danh dự giữa sân cỏ ngập tràn ánh nắng.",
+            caption: "90 phút để quyết định tất cả. Bao nhiêu nỗ lực, mồ hôi và khát vọng đều dồn vào trận đấu cuối cùng này!",
+            speaker: null,
+            dialogue: null
+          },
+          {
+            num: 3,
+            sfx: "BƯỚC ĐỀU...",
+            visual: "Các cầu thủ ITK65 chỉnh tề trong bộ áo đấu xanh navy viền đỏ trắng, từng bước chân bước ra sân trong tiếng vỗ tay rền vang.",
+            caption: null,
+            speaker: "Hậu vệ Nam",
+            dialogue: "Đông khán giả quá, tim đập thình thịch luôn anh em ơi!"
+          },
+          {
+            num: 4,
+            sfx: "SIẾT CHẶT!",
+            visual: "Minh quay lại nhìn thẳng vào từng đồng đội, nụ cười tự tin và ánh mắt kiên định làm dịu đi mọi áp lực.",
+            caption: null,
+            speaker: "Đội trưởng Minh",
+            dialogue: "Hãy biến tiếng reo hò đó thành sức mạnh! Hôm nay là ngày của chúng ta!"
+          }
+        ]
+      },
+      {
+        page: 14,
+        title: "Lời Thề Trước Giờ Xung Trận: Không Đến Đây Để Về Nhì!",
+        panels: [
+          {
+            num: 1,
+            sfx: "LẮNG ĐỌNG...",
+            visual: "Toàn đội khoác vai nhau thành vòng tròn kín giữa sân cỏ, đầu cúi sát nhau lắng nghe Đội trưởng dặn dò.",
+            caption: "Khoảnh khắc gắn kết thiêng liêng trước giờ xung trận...",
+            speaker: null,
+            dialogue: null
+          },
+          {
+            num: 2,
+            sfx: "NGHẸN NGÀO...",
+            visual: "Cận cảnh gương mặt xúc động nhưng đanh thép của Minh.",
+            caption: null,
+            speaker: "Đội trưởng Minh",
+            dialogue: "Anh em! Nhớ những đêm thức trắng vừa làm đồ án vừa ra sân tập không? Nhớ những vết thương trầy xước không?!"
+          },
+          {
+            num: 3,
+            sfx: "RỰC LỬA!",
+            visual: "Từng ánh mắt của đồng đội sáng rực như những chiến binh manga sẵn sàng bước vào trận chiến quyết định.",
+            caption: null,
+            speaker: "Đội trưởng Minh",
+            dialogue: "Chúng ta đã đi một chặng đường quá dài! CHÚNG TA KHÔNG ĐẾN ĐÂY ĐỂ VỀ NHÌ!!"
+          },
+          {
+            num: 4,
+            sfx: "ROOOOAR!!",
+            visual: "Tất cả cùng giơ cao nắm đấm lên trời, tiếng thét đồng thanh làm rung chuyển cả sân vận động!",
+            caption: null,
+            speaker: "Toàn đội ITK65",
+            dialogue: "CHIẾN ĐẤU ĐẾN CÙNG! VÔ ĐỊCH!!"
+          }
+        ]
+      },
+      {
+        page: 15,
+        title: "Đại Chiến Bùng Nổ: Giằng Co Từng Tấc Cỏ",
+        panels: [
+          {
+            num: 1,
+            sfx: "TUUUÚT!!",
+            visual: "Trọng tài thổi còi khai cuộc trận chung kết! Bóng lăn trong tiếng reo hò sấm dậy của cổ động viên.",
+            caption: "Trận chung kết bắt đầu với cường độ chóng mặt ngay từ những giây đầu tiên!",
+            speaker: null,
+            dialogue: null
+          },
+          {
+            num: 2,
+            sfx: "BỘP!!",
+            visual: "Đối thủ tấn công nguy hiểm, tiền đạo đối phương sút căng nhưng trung vệ ITK65 lăn xả dùng cả ngực cản phá!",
+            caption: null,
+            speaker: "Trung vệ Huy",
+            dialogue: "Không có đường vào đâu!!"
+          },
+          {
+            num: 3,
+            sfx: "CĂNG THẲNG...",
+            visual: "Tỷ số hòa 1-1 giằng co đến phút 85. Hai đội tranh chấp khốc liệt từng mét cỏ, thể lực bắt đầu cạn kiệt.",
+            caption: "Thời gian trôi về những phút cuối. Chỉ một sai lầm nhỏ cũng có thể cướp đi giấc mơ vô địch!",
+            speaker: null,
+            dialogue: null
+          },
+          {
+            num: 4,
+            sfx: "BỨT TỐC!",
+            visual: "Chân Minh mỏi nhừ, bắp chân co cứng nhưng anh vẫn cắn răng lao theo một đường chuyền dài ra biên.",
+            caption: null,
+            speaker: "Đội trưởng Minh (nghĩ thầm)",
+            dialogue: "Chỉ còn vài phút nữa thôi... Tuyệt đối không được bỏ cuộc!!"
+          }
+        ]
+      },
+      {
+        page: 16,
+        title: "Phút 88 Định Mệnh: Bản Giao Hưởng Phản Công",
+        panels: [
+          {
+            num: 1,
+            sfx: "XOẠC!! BẬT BÓNG!",
+            visual: "Tiền vệ ITK65 nhoài người xoạc bóng sạch sẽ ngay trước mũi giày đối phương ở khu vực giữa sân.",
+            caption: null,
+            speaker: "Tiền vệ ITK65",
+            dialogue: "CƯỚP ĐƯỢC BÓNG RỒI! PHẢN CÔNG MAU!!"
+          },
+          {
+            num: 2,
+            sfx: "TÍCH! TẮC! TÍCH!",
+            visual: "Ba cầu thủ ITK65 phối hợp tam giác 1 chạm biến hóa khôn lường xé toang toàn bộ hàng thủ đối phương.",
+            caption: "Một pha phối hợp nhịp nhàng chuẩn xác như thuật toán tối ưu!",
+            speaker: "Hậu vệ đối thủ",
+            dialogue: "Chặn số 65 lại! Nó thoát xuống rồi!!"
+          },
+          {
+            num: 3,
+            sfx: "VÚT BỔNG!",
+            visual: "Đường chọc khe bổng hoàn mỹ rót bóng qua đầu thủ môn đối phương rơi vào khoảng trống vòng cấm.",
+            caption: null,
+            speaker: "Số 10 ITK65",
+            dialogue: "MINH! KẾT LIỄU ĐI!!"
+          },
+          {
+            num: 4,
+            sfx: "XÉ GIÓ!!",
+            visual: "Minh tung cú nước rút xé gió, vượt lên trên tất cả, ánh mắt khóa chặt vào tâm điểm trái bóng đang rơi.",
+            caption: "Một khoảnh khắc! Một cơ hội duy nhất để khắc tên mình vào lịch sử!",
+            speaker: null,
+            dialogue: null
+          }
+        ]
+      },
+      {
+        page: 17,
+        title: "Cú Sút Thế Kỷ – Xé Toang Khung Thành!",
+        panels: [
+          {
+            num: 1,
+            sfx: "NGỪNG LẠI...",
+            visual: "Slow motion: Trái bóng rơi xuống vừa tầm chân, Minh xoay người dồn toàn bộ trọng tâm vung chân phải.",
+            caption: "Bao nhiêu ngày tập luyện, bao nhiêu khát vọng của cả một tập thể... dồn trọn vào khoảnh khắc này!",
+            speaker: null,
+            dialogue: null
+          },
+          {
+            num: 2,
+            sfx: "KRAAAASHHHH!!!!",
+            visual: "Impact Frame manga đỉnh cao: Mu bàn chân chạm bóng tóe ra sóng xung kích và tia chớp rực sáng bầu trời!",
+            caption: null,
+            speaker: "Đội trưởng Minh",
+            dialogue: "BAY VÀOOOOOOOOOO!!"
+          },
+          {
+            num: 3,
+            sfx: "XOẸT... BÙM!!",
+            visual: "Bóng bay với quỹ đạo hình tia sét, vượt khỏi tầm với của thủ môn và găm rách góc chữ A màng lưới!",
+            caption: null,
+            speaker: "Bình luận viên",
+            dialogue: "VÀOOOOOOOO! KHÔNG THỂ CẢN PHÁ!!"
+          },
+          {
+            num: 4,
+            sfx: "TUUUÚT! TUUUÚT! TUUUUUUUÚT!!",
+            visual: "Trọng tài nổi ba hồi còi mãn cuộc! Bảng tỷ số ấn định: ITK65: 2 - 1 :CHUNG KẾT!",
+            caption: "TIẾNG CÒI MÃN CUỘC VANG LÊN! ITK65 ĐÃ CHÍNH THỨC TRỞ THÀNH NHÀ VÔ ĐỊCH!!",
+            speaker: "Toàn bộ SV UTC2",
+            dialogue: "VÔ ĐỊCH RỒI! ITK65 LÀ NHÀ VUA!!"
+          }
+        ]
+      },
+      {
+        page: 18,
+        title: "Vỡ Òa Nước Mắt Hạnh Phúc",
+        panels: [
+          {
+            num: 1,
+            sfx: "NỨC NỞ...",
+            visual: "Đội trưởng Minh quỳ gối gục đầu xuống mặt cỏ xanh, hai tay ôm mặt nấc nghẹn trong giọt nước mắt sung sướng.",
+            caption: null,
+            speaker: "Đội trưởng Minh",
+            dialogue: "Làm được rồi... Chúng ta thực sự làm được rồi anh em ơi..."
+          },
+          {
+            num: 2,
+            sfx: "ÔM CHẶT!",
+            visual: "Ban huấn luyện và cầu thủ dự bị lao vào sân, ôm chầm lấy nhau thành một khối người khổng lồ đẫm mồ hôi.",
+            caption: null,
+            speaker: "Đồng đội ITK65",
+            dialogue: "VÔ ĐỊCH THẬT RỒI! KHÔNG THỂ TIN NỔI!!"
+          },
+          {
+            num: 3,
+            sfx: "RỰC RỠ!",
+            visual: "Thầy cô và bạn bè sinh viên Khoa CNTT UTC2 ùa xuống sân mang theo cờ hoa và tiếng reo hò vang rền.",
+            caption: "Chiến thắng không tự nhiên mà đến. Nó là thành quả của mồ hôi, bản lĩnh và niềm tin chưa bao giờ tắt!",
+            speaker: null,
+            dialogue: null
+          },
+          {
+            num: 4,
+            sfx: "ÁNH NẮNG...",
+            visual: "Hai cầu thủ bạn thân khoác vai nhau nhìn lên bầu trời chiều UTC2, nụ cười rạng rỡ của thanh xuân tươi đẹp.",
+            caption: null,
+            speaker: "Hậu vệ Nam",
+            dialogue: "Đây chắc chắn là kỷ niệm đẹp nhất thời sinh viên của tụi mình!"
+          }
+        ]
+      },
+      {
+        page: 19,
+        title: "Lễ Trao Giải – Chiếc Cúp Vàng Lấp Lánh Giữa Mưa Pháo Hoa",
+        panels: [
+          {
+            num: 1,
+            sfx: "TRANG TRỌNG...",
+            visual: "Đại diện Ban Giám hiệu và Trưởng Bộ môn CNTT trang trọng trao từng tấm Huy Chương Vàng lên cổ các cầu thủ.",
+            caption: null,
+            speaker: "Thầy Trưởng Bộ Môn",
+            dialogue: "Chúc mừng ITK65! Các em đã chiến đấu bằng cả trí tuệ và trái tim của người làm công nghệ!"
+          },
+          {
+            num: 2,
+            sfx: "NÂNG CÚP...",
+            visual: "Đội trưởng Minh bước lên bục vinh quang số 1, hai tay nắm chặt hai quai chiếc Cúp vô địch sáng ngời.",
+            caption: "Và đây rồi... khoảnh khắc mà tất cả chúng ta đã chờ đợi suốt hành trình dài!",
+            speaker: null,
+            dialogue: null
+          },
+          {
+            num: 3,
+            sfx: "BÙM BÙM! TÁCH TÁCH!!",
+            visual: "Cả đội đồng loạt nâng bổng chiếc Cúp lên trời! Hàng vạn mảnh giấy kim tuyến Confetti vàng óng bay ngợp trời!",
+            caption: null,
+            speaker: "Toàn đội ITK65",
+            dialogue: "YEEEEEEEEEEAHHHHHHH!!!"
+          },
+          {
+            num: 4,
+            sfx: "LẤP LÁNH!",
+            visual: "Cận cảnh chiếc Cúp vô địch sáng loáng phản chiếu nụ cười rạng rỡ của những chàng trai IT mang số áo 65.",
+            caption: "Từ những chàng sinh viên IT với những dòng code mỗi ngày, hôm nay các bạn đã viết nên một trang lịch sử vẻ vang!",
+            speaker: null,
+            dialogue: null
+          }
+        ]
+      },
+      {
+        page: 20,
+        title: "Tấm Ảnh Lịch Sử – Khắc Tên Vào Ngôi Vương",
+        panels: [
+          {
+            num: 1,
+            sfx: "TÁCH TÁCH! (FLASH)",
+            visual: "Đại cảnh chụp ảnh lưu niệm cả đội ITK65 trong màu áo xanh navy viền đỏ trắng, ngực đeo HCV quây quần bên chiếc Cúp vô địch.",
+            caption: "Một tập thể – Một giấc mơ – Một ngôi vương!",
+            speaker: null,
+            dialogue: null
+          },
+          {
+            num: 2,
+            sfx: "TỎA SÁNG!",
+            visual: "Cận cảnh logo UTC2, cờ Bộ môn CNTT và quả bóng thi đấu chi chít chữ ký kỷ niệm của tất cả thành viên.",
+            caption: "Chiếc cúp đã có chủ! Vinh quang vĩnh viễn thuộc về ITK65!",
+            speaker: null,
+            dialogue: null
+          },
+          {
+            num: 3,
+            sfx: "1... 2... 3... VÚT!!",
+            visual: "Toàn đội tung Đội trưởng và Huấn luyện viên lên không trung giữa tiếng cười giòn giã và pháo hoa rực rỡ.",
+            caption: null,
+            speaker: "Tất cả",
+            dialogue: "HOAN HÔ ITK65! TUYỆT VỜI LẮM ANH EM ƠI!!"
+          },
+          {
+            num: 4,
+            sfx: "VANG DỘI ĐẤT TRỜI!!",
+            visual: "Khung tranh đại kết thúc: Toàn đội đồng thanh giơ nắm đấm về phía máy ảnh, ánh mắt rạng ngời tự hào vô bờ bến.",
+            caption: "Không chỉ chinh phục trái bóng tròn, chúng ta đã cùng nhau chinh phục giới hạn của chính mình!",
+            speaker: "Toàn đội ITK65 đồng thanh",
+            dialogue: "ITK65 – CHIẾN ĐẤU HẾT MÌNH – VÔ ĐỊCH HẾT MÌNH!!"
+          }
+        ]
+      }
+    ];
+
+    let currentPage = 1;
+    let isAllView = false;
+
+    function init() {
+      const select = document.getElementById('pageSelect');
+      const thumbList = document.getElementById('thumbList');
+
+      pagesData.forEach(p => {
+        // Option
+        const opt = document.createElement('option');
+        opt.value = p.page;
+        opt.textContent = `Trang ${p.page}: ${p.title}`;
+        select.appendChild(opt);
+
+        // Thumb
+        const btn = document.createElement('button');
+        btn.className = `thumb-btn ${p.page === 1 ? 'active' : ''}`;
+        btn.id = `thumb-${p.page}`;
+        btn.textContent = p.page;
+        btn.onclick = () => jumpToPage(p.page);
+        thumbList.appendChild(btn);
+      });
+
+      render();
+    }
+
+    function renderPanel(panel) {
+      let dialogueHtml = '';
+      if (panel.dialogue) {
+        dialogueHtml = `
+          <div class="speech-bubble">
+            ${panel.speaker ? `<div class="speaker-name">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              ${panel.speaker}
+            </div>` : ''}
+            <div>"${panel.dialogue}"</div>
+          </div>
+        `;
+      }
+
+      let captionHtml = '';
+      if (panel.caption) {
+        captionHtml = `<div class="caption-box">${panel.caption}</div>`;
+      }
+
+      return `
+        <div class="manga-panel panel-bg-action">
+          <div class="panel-header">
+            <span class="panel-number">KHUNG ${panel.num}</span>
+            ${panel.sfx ? `<span class="sfx-badge">${panel.sfx}</span>` : ''}
+          </div>
+          <div class="panel-visual">
+            <strong>Bối cảnh & Hành động:</strong> ${panel.visual}
+          </div>
+          ${dialogueHtml}
+          ${captionHtml}
+        </div>
+      `;
+    }
+
+    function renderPageHtml(p) {
+      return `
+        <article class="manga-page" id="page-${p.page}">
+          <div class="manga-page-header">
+            <div class="page-indicator">TRANG ${p.page} / 20</div>
+            <div class="page-title">${p.title}</div>
+          </div>
+          <div class="panel-grid">
+            ${p.panels.map(panel => renderPanel(panel)).join('')}
+          </div>
+        </article>
+      `;
+    }
+
+    function render() {
+      const container = document.getElementById('mangaContainer');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const select = document.getElementById('pageSelect');
+
+      if (isAllView) {
+        container.innerHTML = pagesData.map(p => renderPageHtml(p)).join('');
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+      } else {
+        const pageData = pagesData.find(p => p.page === currentPage);
+        container.innerHTML = renderPageHtml(pageData);
+        prevBtn.disabled = (currentPage === 1);
+        nextBtn.disabled = (currentPage === 20);
+        select.value = currentPage;
+
+        document.querySelectorAll('.thumb-btn').forEach(btn => btn.classList.remove('active'));
+        const activeThumb = document.getElementById(`thumb-${currentPage}`);
+        if (activeThumb) {
+          activeThumb.classList.add('active');
+          activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }
+    }
+
+    function nextPage() {
+      if (currentPage < 20) {
+        currentPage++;
+        render();
+        window.scrollTo({ top: 400, behavior: 'smooth' });
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 1) {
+        currentPage--;
+        render();
+        window.scrollTo({ top: 400, behavior: 'smooth' });
+      }
+    }
+
+    function jumpToPage(num) {
+      isAllView = false;
+      document.getElementById('viewModeBtn').textContent = '📜 Xem Toàn Bộ 20 Trang';
+      currentPage = parseInt(num);
+      render();
+      window.scrollTo({ top: 400, behavior: 'smooth' });
+    }
+
+    function toggleAllPages() {
+      isAllView = !isAllView;
+      const btn = document.getElementById('viewModeBtn');
+      if (isAllView) {
+        btn.textContent = '📖 Về Chế Độ Từng Trang';
+      } else {
+        btn.textContent = '📜 Xem Toàn Bộ 20 Trang';
+      }
+      render();
+    }
+
+    // Keyboard support
+    window.addEventListener('keydown', (e) => {
+      if (isAllView) return;
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+        nextPage();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevPage();
+      }
+    });
+
+    window.onload = init;
+  </script>
+</body>
+</html>

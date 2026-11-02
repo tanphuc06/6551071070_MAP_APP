@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using ClosedXML.Excel;
+using HotelManagement.ChiTietTienNghi;
 using HotelManagement.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -144,9 +147,10 @@ namespace HotelManagement.LoaiPhong
             }
             else if (tenCot == "colTienNghi")
             {
-                MessageBox.Show(
-                    $"Chức năng chi tiết tiện nghi của loại phòng {tenLPH} ({maLPH}) đang được xây dựng.",
-                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                using (var formTienNghi = new FormDanhSachChiTietTienNghi(maLPH, tenLPH ?? ""))
+                {
+                    formTienNghi.ShowDialog();
+                }
             }
         }
 

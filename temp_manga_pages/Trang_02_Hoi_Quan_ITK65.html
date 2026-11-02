@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Trang 2 - Hội Quân ITK65 – Tinh Thần Rực Lửa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat:ital,wght@0,500;0,700;0,900;1,500;1,700&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      width: 1200px;
+      height: 1680px;
+      background: #090d16;
+      color: #f8fafc;
+      font-family: 'Montserrat', sans-serif;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      border: 8px solid #0f172a;
+    }
+
+    /* Page Header */
+    .page-header {
+      background: linear-gradient(90deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%);
+      border: 2px solid #ef4444;
+      border-radius: 8px;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .badge-utc2 {
+      background: #ef4444;
+      color: #fff;
+      font-family: 'Bangers', cursive;
+      font-size: 20px;
+      padding: 2px 10px;
+      border-radius: 4px;
+      letter-spacing: 1px;
+    }
+    .series-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 19px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #fff;
+    }
+    .series-sub {
+      font-size: 11px;
+      color: #fbbf24;
+      font-weight: 700;
+    }
+    .header-right {
+      text-align: right;
+    }
+    .page-num-badge {
+      font-family: 'Bangers', cursive;
+      font-size: 28px;
+      color: #fbbf24;
+      text-shadow: 2px 2px 0 #000;
+      letter-spacing: 1px;
+    }
+    .page-title-badge {
+      font-family: 'Oswald', sans-serif;
+      font-size: 13px;
+      color: #94a3b8;
+      text-transform: uppercase;
+    }
+
+    /* 4-Panel 2x2 Grid */
+    .panels-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 18px;
+      flex: 1;
+      margin: 18px 0;
+    }
+
+    /* Individual Panel */
+    .manga-panel {
+      background: #111827;
+      border: 3px solid #334155;
+      border-radius: 8px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.6), 0 4px 10px rgba(0,0,0,0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .panel-index-badge {
+      background: #1e293b;
+      color: #93c5fd;
+      border: 1px solid #3b82f6;
+      font-family: 'Oswald', sans-serif;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+    .panel-sfx {
+      font-family: 'Bangers', cursive;
+      font-size: 24px;
+      letter-spacing: 1.5px;
+      color: #fbbf24;
+      text-shadow: 2px 2px 0 #b45309, -1px -1px 0 #000;
+      transform: rotate(-6deg);
+    }
+
+    /* Real Graphic Box */
+    .panel-graphic-box {
+      border: 2px solid #1e293b;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 8px;
+      height: 200px;
+      background: #000;
+      position: relative;
+    }
+    .panel-real-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .panel-overlay-vignette {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      box-shadow: inset 0 0 30px rgba(0,0,0,0.7);
+      pointer-events: none;
+    }
+
+    /* Speech Bubble */
+    .speech-bubble-wrapper {
+      margin: 6px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .manga-speech-bubble {
+      background: #ffffff;
+      color: #0f172a;
+      border: 2.5px solid #000000;
+      border-radius: 14px;
+      padding: 8px 12px;
+      width: 94%;
+      position: relative;
+      box-shadow: 3px 3px 0 rgba(0,0,0,0.85);
+    }
+    .manga-speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -9px;
+      left: 36px;
+      border-width: 9px 8px 0;
+      border-style: solid;
+      border-color: #fff transparent;
+      display: block;
+      width: 0;
+    }
+    .manga-speech-bubble::before {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      left: 35px;
+      border-width: 11px 9px 0;
+      border-style: solid;
+      border-color: #000 transparent;
+      display: block;
+      width: 0;
+    }
+    .speaker-tag {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 2px;
+    }
+    .speaker-name {
+      font-family: 'Oswald', sans-serif;
+      font-size: 11.5px;
+      color: #dc2626;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .dialogue-text {
+      font-size: 13.5px;
+      font-weight: 800;
+      line-height: 1.35;
+      color: #000;
+    }
+    .bubble-spacer {
+      height: 4px;
+    }
+
+    /* Story Description */
+    .panel-story-desc {
+      background: #090e17;
+      border-left: 3px solid #3b82f6;
+      padding: 6px 10px;
+      font-size: 12px;
+      color: #cbd5e1;
+      line-height: 1.35;
+      border-radius: 0 4px 4px 0;
+      margin: 4px 0;
+    }
+    .panel-story-desc strong {
+      color: #93c5fd;
+    }
+
+    /* Manga Caption Box */
+    .manga-caption-box {
+      background: #fef08a;
+      color: #451a03;
+      border: 2px solid #000000;
+      border-radius: 4px;
+      padding: 6px 10px;
+      box-shadow: 2px 2px 0 rgba(0,0,0,0.7);
+      margin-top: 4px;
+    }
+    .caption-tag {
+      font-family: 'Oswald', sans-serif;
+      font-size: 10px;
+      color: #9a3412;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .caption-text {
+      font-size: 12px;
+      font-style: italic;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    /* Page Footer */
+    .page-footer {
+      background: #0f172a;
+      border-top: 2px solid #334155;
+      padding: 8px 16px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11.5px;
+      color: #94a3b8;
+    }
+    .footer-highlight {
+      color: #fbbf24;
+      font-weight: 700;
+      font-family: 'Oswald', sans-serif;
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="page-header">
+    <div class="header-left">
+      <span class="badge-utc2">UTC2 MANGA</span>
+      <div>
+        <div class="series-title">Hành Trình Chinh Phục Ngôi Vương – ITK65</div>
+        <div class="series-sub">Bộ Môn Công Nghệ Thông Tin – ĐH Giao Thông Vận Tải (Phân hiệu TP.HCM)</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="page-num-badge">TRANG 2 / 20</div>
+      <div class="page-title-badge">Hội Quân ITK65 – Tinh Thần Rực Lửa</div>
+    </div>
+  </header>
+
+  <!-- 4-Panel Grid -->
+  <main class="panels-grid">
+    
+      <div class="manga-panel">
+        <div class="panel-top-bar">
+          <div class="panel-index-badge">KHUNG 01 • KHỞI ĐỘNG NHUẦN NHUYỄN</div>
+          <div class="panel-sfx">BỘP! TÁCH!</div>
+        </div>
+        
+        <!-- Real Realistic Manga Artwork Scene -->
+        <div class="panel-graphic-box">
+          <img src="file:///C:/Users/Lenovo/TH_LTTQ/Project/scenes/manga_scene_campus_walkout_1793349516139.jpg" class="panel-real-img" style="object-position: right center; transform: scale(1.15);" alt="Scene Action" />
+          <div class="panel-overlay-vignette"></div>
+        </div>
+
+        <!-- Speech Bubble floating over character head -->
+        
+      <div class="speech-bubble-wrapper">
+        <div class="manga-speech-bubble">
+          <div class="speaker-tag">
+            <span class="speaker-icon">👤</span>
+            <span class="speaker-name">Tiền vệ Huy</span>
+          </div>
+          <div class="dialogue-text">"Hôm nay cảm giác bóng tốt lắm đấy Minh!"</div>
+        </div>
+      </div>
+    
+
+        <!-- Scene visual description text -->
+        <div class="panel-story-desc">
+          <strong>Hành động:</strong> Cầu thủ ITK65 khởi động ép cơ, chuyền bóng ngắn với nụ cười rạng rỡ đầy năng lượng.
+        </div>
+
+        <!-- Manga Narrator Caption -->
+        
+      </div>
+    
+      <div class="manga-panel">
+        <div class="panel-top-bar">
+          <div class="panel-index-badge">KHUNG 02 • ÁNH MẮT QUYẾT TÂM</div>
+          <div class="panel-sfx">XIẾT... SOẠT!</div>
+        </div>
+        
+        <!-- Real Realistic Manga Artwork Scene -->
+        <div class="panel-graphic-box">
+          <img src="file:///C:/Users/Lenovo/TH_LTTQ/Project/scenes/cover.jpg" class="panel-real-img" style="object-position: center 20%; transform: scale(1.45);" alt="Scene Action" />
+          <div class="panel-overlay-vignette"></div>
+        </div>
+
+        <!-- Speech Bubble floating over character head -->
+        
+      <div class="speech-bubble-wrapper">
+        <div class="manga-speech-bubble">
+          <div class="speaker-tag">
+            <span class="speaker-icon">👤</span>
+            <span class="speaker-name">Đội trưởng Minh</span>
+          </div>
+          <div class="dialogue-text">"Khởi động thật kỹ vào. Với chúng ta, trận nào cũng là trận chung kết!"</div>
+        </div>
+      </div>
+    
+
+        <!-- Scene visual description text -->
+        <div class="panel-story-desc">
+          <strong>Hành động:</strong> Đội trưởng Minh cúi người thắt chặt dây giày đinh, ánh mắt ngước lên nhìn thẳng vào ống kính cực kỳ sắc bén.
+        </div>
+
+        <!-- Manga Narrator Caption -->
+        
+      </div>
+    
+      <div class="manga-panel">
+        <div class="panel-top-bar">
+          <div class="panel-index-badge">KHUNG 03 • ĐỘI HÌNH ITK65</div>
+          <div class="panel-sfx">GIÓ THỔI...</div>
+        </div>
+        
+        <!-- Real Realistic Manga Artwork Scene -->
+        <div class="panel-graphic-box">
+          <img src="file:///C:/Users/Lenovo/TH_LTTQ/Project/scenes/manga_scene_team_huddle_1793349566831.jpg" class="panel-real-img" style="object-position: center top; transform: scale(1.05);" alt="Scene Action" />
+          <div class="panel-overlay-vignette"></div>
+        </div>
+
+        <!-- Speech Bubble floating over character head -->
+        <div class="bubble-spacer"></div>
+
+        <!-- Scene visual description text -->
+        <div class="panel-story-desc">
+          <strong>Hành động:</strong> Toàn đội ITK65 đứng dàn hàng ngang khoác vai nhau trên sân cỏ UTC2 rực rỡ nắng vàng.
+        </div>
+
+        <!-- Manga Narrator Caption -->
+        
+      <div class="manga-caption-box">
+        <div class="caption-tag">LỜI DẪN</div>
+        <div class="caption-text">"ITK65 bước vào giải đấu năm nay với một khát vọng duy nhất đã được nung nấu từ rất lâu..."</div>
+      </div>
+    
+      </div>
+    
+      <div class="manga-panel">
+        <div class="panel-top-bar">
+          <div class="panel-index-badge">KHUNG 04 • TIẾNG HÔ QUYẾT CHIẾN</div>
+          <div class="panel-sfx">ẦM!!</div>
+        </div>
+        
+        <!-- Real Realistic Manga Artwork Scene -->
+        <div class="panel-graphic-box">
+          <img src="file:///C:/Users/Lenovo/TH_LTTQ/Project/scenes/manga_scene_team_huddle_1793349566831.jpg" class="panel-real-img" style="object-position: center center; transform: scale(1.25);" alt="Scene Action" />
+          <div class="panel-overlay-vignette"></div>
+        </div>
+
+        <!-- Speech Bubble floating over character head -->
+        
+      <div class="speech-bubble-wrapper">
+        <div class="manga-speech-bubble">
+          <div class="speaker-tag">
+            <span class="speaker-icon">👤</span>
+            <span class="speaker-name">Toàn đội ITK65</span>
+          </div>
+          <div class="dialogue-text">"CHINH PHỤC NGÔI VƯƠNG! 1... 2... 3... ITK65 TIẾN LÊN!!"</div>
+        </div>
+      </div>
+    
+
+        <!-- Scene visual description text -->
+        <div class="panel-story-desc">
+          <strong>Hành động:</strong> Cả đội cùng chụm đầu, đặt chồng tay lên nhau giữa vòng tròn và gào vang khẩu hiệu quyết tâm rực lửa.
+        </div>
+
+        <!-- Manga Narrator Caption -->
+        
+      </div>
+    
+  </main>
+
+  <!-- Footer -->
+  <footer class="page-footer">
+    <div>⚽ Đồng phục: Thân xanh navy đậm • Tay áo Royal Blue • Cổ tim viền đỏ-trắng thể thao</div>
+    <div class="footer-highlight">🏆 ITK65: CHIẾN ĐẤU HẾT MÌNH – VÔ ĐỊCH HẾT MÌNH!</div>
+  </footer>
+</body>
+</html>
